@@ -8,7 +8,7 @@ function Header() {
     <header>
       <h1>
         <NavLink to="/" activeClassName="brandname">
-          Food
+          Food Catalog
         </NavLink>
       </h1>
     </header>

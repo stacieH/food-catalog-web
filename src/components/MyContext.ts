@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 export type UserContextType = {
+  images: { [key: string]: string | undefined };
   loginUser: { username: string | null; password: string | null };
   setLoginUser: (user: {
     username: string | null;
@@ -9,6 +10,9 @@ export type UserContextType = {
 };
 
 export const UserContext = createContext<UserContextType>({
+  images: {
+    something_went_wrong: undefined,
+  },
   loginUser: { username: null, password: null },
   setLoginUser: (user: {
     username: string | null;
