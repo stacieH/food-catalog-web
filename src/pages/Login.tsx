@@ -11,7 +11,7 @@ function Login() {
   // custom hook
   const [{ username, password }, setUser] = useUserLogin();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       await setLoginUser({ username, password });
@@ -21,11 +21,11 @@ function Login() {
     }
   };
 
-  const handleChange = (e) => {
-    const {
-      target: { name, value },
-    } = e;
-    setUser({ [name]: value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name || 'username';
+    const value = e.target.value || '';
+
+    setUser({ [name]: value || '' });
   };
 
   return (
