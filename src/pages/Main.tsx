@@ -33,6 +33,7 @@ function Main() {
         await setLoading(false);
       } catch (err) {
         setLoading(false);
+        console.error(err instanceof Error ? err.message : String(err));
       }
     }
     getFoodie();

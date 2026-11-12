@@ -18,8 +18,6 @@ import dummyData from '../data/foods.json';
 //     .then((res) => res.data);
 // };
 
-
-
 export const getFoods = () => {
   const data = dummyData.data;
 

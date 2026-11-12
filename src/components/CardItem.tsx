@@ -1,13 +1,17 @@
 import React, { Fragment } from 'react';
 
 export type CardItemProps = {
-    image: string;
-    label: string;
-    source: string;
-}
+  image: string;
+  label: string;
+  source: string;
+};
 
-function CardItem(props:CardItemProps) {
-  const { image, label, source } = props||{ image: '', label: '', source: '' };
+function CardItem(props: CardItemProps) {
+  const { image, label, source } = props || {
+    image: '',
+    label: '',
+    source: '',
+  };
 
   return (
     <Fragment>

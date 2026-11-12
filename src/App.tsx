@@ -15,14 +15,22 @@ const Provider = UserContext.Provider;
 import './styles/index.css';
 
 import Loading from './components/Loading';
+import type { UserContextType } from './components/MyContext';
 
 function App() {
-  const [loginUser, setLoginUser] = useState(null);
+  const [loginUser, setLoginUser] = useState<UserContextType['loginUser']>({
+    username: null,
+    password: null,
+  });
 
-  const value = useMemo(() => ({ loginUser, setLoginUser }), [
-    loginUser,
-    setLoginUser,
-  ]);
+  const handleSetLoginUser = (user: UserContextType['loginUser']) => {
+    setLoginUser(user);
+  };
+
+  const value = useMemo(
+    () => ({ loginUser, setLoginUser: handleSetLoginUser }),
+    [loginUser],
+  );
 
   return (
     <Fragment>
