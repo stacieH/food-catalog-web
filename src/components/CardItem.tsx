@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
 export type CardItemProps = {
+  id: string;
   image: string;
   label: string;
   source: string;
@@ -8,6 +9,7 @@ export type CardItemProps = {
 
 function CardItem(props: CardItemProps) {
   const { image, label, source } = props || {
+    id: '',
     image: '',
     label: '',
     source: '',
