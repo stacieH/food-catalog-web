@@ -19,6 +19,10 @@ import dummyData from '../data/foods.json';
 // };
 
 export const getFoods = () => {
+  if (dummyData.success === false) {
+    throw new Error('error catching foods');
+  }
+
   const data = dummyData.data;
 
   return data;
