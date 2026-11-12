@@ -17,7 +17,7 @@ function Login() {
       await setLoginUser({ username, password });
       await navigate('/');
     } catch (err) {
-      throw new Error(err);
+      throw new Error(err instanceof Error ? err.message : String(err));
     }
   };
 

@@ -6,14 +6,20 @@ import LoadingCard from '../components/LoadingCard';
 
 import * as API from '../utils/API';
 
+type Food = {
+  image: string;
+  label: string;
+  source: string;
+};
+
 function Main() {
-  const [foods, setFoods] = useState([]);
+  const [foods, setFoods] = useState<Array<Food>>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getFoodie() {
       try {
-        const res = await API.getFoods('seafood');
+        const res = await API.getFoods();
         const { hits } = res;
         const foods = await hits.map((d) => {
           const { recipe } = d;
@@ -21,7 +27,7 @@ function Main() {
             const { image, label, source } = recipe;
             return { image, label, source };
           }
-          return d;
+          return { image: '', label: '', source: '' };
         });
         await setFoods(foods);
         await setLoading(false);
