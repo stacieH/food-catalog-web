@@ -4,63 +4,74 @@ import { useNavigate } from 'react-router-dom';
 import useUserLogin from '../customHook/useUserLogin';
 import { UserContext } from '../components/MyContext';
 
+import { Login as LoginWidget } from 'sh-login-widget';
+
+import FacebookIcon from '../components/FacebookIcon';
+import GoogleIcon from '../components/GoogleIcon';
+
 function Login() {
   const { setLoginUser } = useContext(UserContext);
   const navigate = useNavigate(); //v5 -> useHistory()
 
   // custom hook
-  const [{ username, password }, setUser] = useUserLogin();
+  // const [{ username, password }, setUser] = useUserLogin();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async ({ email, password })=>{
     try {
-      e.preventDefault();
-      await setLoginUser({ username, password });
+      await setLoginUser({ username:email, password });
       await navigate('/');
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : String(err));
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name || 'username';
-    const value = e.target.value || '';
-
-    setUser({ [name]: value || '' });
+    const handleForgotPassword = () => {
+    navigate('/forgot-pass')
   };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </div>
-        <a href="/password">Forgot Password?</a>
-        <div>gmail</div>
-        <div>facebook</div>
-        <p>
-          Do wou have an account? <a>Register now!</a>
-        </p>
+  const signInWithGoogle = () => {};
 
-        <button>Login</button>
-      </form>
-    </div>
+  const signInWithFacebook = () => {};
+
+  return (
+    <React.Fragment>
+      <LoginWidget
+        text={{
+          registerLink: 'Register now!',
+        }}
+        events={{
+          onSubmit: handleSubmit,
+          onForgotPassword: handleForgotPassword,
+        }}
+        social={[
+          {
+            id: 'google',
+            icon: <FacebookIcon />,
+            label: 'Sign in with Google',
+            onClick: () => signInWithGoogle(),
+          },
+          {
+            id: 'facebook',
+            icon: <GoogleIcon />,
+            label: 'Sign in with Facebook',
+            onClick: () => signInWithFacebook(),
+          },
+        ]}
+        // theme='dark'
+        styles={{
+          wrapper: {
+            minHeight: 'calc(100dvh - 37px)',
+          },
+          forgotButton: {
+            textTransform: 'capitalize',
+          },
+          submitButton:{
+            backgroundColor:"rgb(255, 111, 0)",
+            //  color: "rgb(17, 17, 17)"
+          }
+        }}
+      />
+    </React.Fragment>
   );
 }
 
