@@ -1,13 +1,17 @@
 import React from 'react';
-import WentWrongImg from '../assets/crayon1528.png';
+import { UserContext } from '../components/MyContext';
 
 function SomethingWentWrong() {
+  const context = React.useContext(UserContext);
+  const WentWrongImg = context.images?.something_went_wrong;
+
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        height: ' calc(100dvh - 79.88px)',
       }}
     >
       <img
@@ -15,6 +19,10 @@ function SomethingWentWrong() {
         alt="Something went wrong"
         width="25%"
         height="25%"
+        style={{
+          height: '150px',
+          width: 'auto',
+        }}
       />
       <span>
         <h2>Something went wrong</h2>

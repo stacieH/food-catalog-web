@@ -1,4 +1,11 @@
-import React, { Fragment, Suspense, useMemo, useState } from 'react';
+import React, {
+  Fragment,
+  Suspense,
+  useMemo,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 // React Redux: Hook
@@ -15,14 +22,34 @@ const Provider = UserContext.Provider;
 import './styles/index.css';
 
 import Loading from './components/Loading';
+import type { UserContextType } from './components/MyContext';
+import { getS3Images } from './utils/s3API';
 
 function App() {
-  const [loginUser, setLoginUser] = useState(null);
+  const [images, setImages] = useState<Record<string, string | undefined>>({});
+  const [loginUser, setLoginUser] = useState<UserContextType['loginUser']>({
+    username: null,
+    password: null,
+  });
 
-  const value = useMemo(() => ({ loginUser, setLoginUser }), [
-    loginUser,
-    setLoginUser,
-  ]);
+  const handleSetLoginUser = (user: UserContextType['loginUser']) => {
+    setLoginUser(user);
+  };
+
+  const getImages = useCallback(async () => {
+    const data = await getS3Images();
+
+    setImages(data);
+  }, []);
+
+  const value = useMemo(
+    () => ({ loginUser, setLoginUser: handleSetLoginUser, images }),
+    [loginUser, images],
+  );
+
+  useEffect(() => {
+    getImages();
+  }, [getImages]);
 
   return (
     <Fragment>

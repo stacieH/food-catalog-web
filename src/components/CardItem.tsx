@@ -1,9 +1,20 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
-function CardItem(props) {
-  const { food } = props;
-  const { image, label, source } = food;
+export type CardItemProps = {
+  id: string;
+  image: string;
+  label: string;
+  source: string;
+};
+
+function CardItem(props: CardItemProps) {
+  const { image, label, source } = props || {
+    id: '',
+    image: '',
+    label: '',
+    source: '',
+  };
+
   return (
     <Fragment>
       <div className="card">
@@ -21,9 +32,5 @@ function CardItem(props) {
     </Fragment>
   );
 }
-
-CardItem.propTypes = {
-  food: PropTypes.object.isRequired,
-};
 
 export default CardItem;

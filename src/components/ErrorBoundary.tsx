@@ -1,13 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SomethingWentWrong from '../pages/SomethingWentWrong';
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
-      hasError: null,
+      hasError: false,
     };
   }
 
@@ -27,9 +37,5 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.any,
-};
 
 export default ErrorBoundary;
