@@ -12,9 +12,11 @@ div.card {
 }
 
 div.card > .product-image {
-  max-width: 100%;
-  height: auto;
+  width: 180px;
+  height: 180px;
   border-radius: 3px;
+  object-fit: cover;
+  border: 1px solid #ededed
 }
 
 div.card > .product-image-loading {
