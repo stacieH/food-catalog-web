@@ -7,14 +7,20 @@ type Food = {
   source: string;
 };
 
+type Catalog = {
+  name: string;
+  _id: string;
+  images: Array<{ url: string }>;
+  category: { name: string };
+};
+
 export const getFoods = async (): Promise<Array<Food>> => {
   try {
     const base_url = import.meta.env.VITE_API_URL;
-    console.log("meta",  import.meta)
-    console.log("env",  import.meta.env)
+
     const response = await axios({
       baseURL: base_url,
-      url: `/data/foods.json`,
+      url: `/api/product-catalogs`,
     });
 
     const data = response?.data || {};
@@ -23,15 +29,20 @@ export const getFoods = async (): Promise<Array<Food>> => {
       throw new Error('error catching foods');
     }
 
-    const hits = data?.data?.hits || [];
+    const dummyImage =
+      'https://static.vecteezy.com/system/resources/previews/022/059/000/non_2x/no-image-available-icon-vector.jpg';
+    const hits = data?.data || [];
 
-    const foods = await hits.map((d: { recipe?: Food }) => {
-      const { recipe } = d;
+    const foods = await hits.map((recipe: Catalog) => {
       if (recipe) {
-        const { image, label, source } = recipe;
-        return { id: recipe.id, image, label, source };
+        return {
+          id: recipe?._id,
+          image: recipe.images?.[0]?.url || dummyImage,
+          label: recipe?.name,
+          source: recipe?.category?.name,
+        };
       }
-      return { id: '', image: '', label: '', source: '' };
+      return { id: '', image: dummyImage, label: '', source: '' };
     });
 
     return foods;

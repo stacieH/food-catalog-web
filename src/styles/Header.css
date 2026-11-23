@@ -3,7 +3,7 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: rgb(255, 111, 0);
-  height:79.88px;
+  height: 79.88px;
 }
 header > h1 {
   margin-left: 20px;

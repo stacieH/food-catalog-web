@@ -16,17 +16,17 @@ function Login() {
   // custom hook
   // const [{ username, password }, setUser] = useUserLogin();
 
-  const handleSubmit = async ({ email, password })=>{
+  const handleSubmit = async ({ email, password }) => {
     try {
-      await setLoginUser({ username:email, password });
+      await setLoginUser({ username: email, password });
       await navigate('/');
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : String(err));
     }
   };
 
-    const handleForgotPassword = () => {
-    navigate('/forgot-pass')
+  const handleForgotPassword = () => {
+    navigate('/forgot-pass');
   };
 
   const signInWithGoogle = () => {};
@@ -65,10 +65,10 @@ function Login() {
           forgotButton: {
             textTransform: 'capitalize',
           },
-          submitButton:{
-            backgroundColor:"rgb(255, 111, 0)",
+          submitButton: {
+            backgroundColor: 'rgb(255, 111, 0)',
             //  color: "rgb(17, 17, 17)"
-          }
+          },
         }}
       />
     </React.Fragment>
